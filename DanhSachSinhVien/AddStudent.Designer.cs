@@ -49,6 +49,7 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
+            this.lblTongSVThang8 = new System.Windows.Forms.Label();
             this.cbbDoiTuong = new System.Windows.Forms.ComboBox();
             this.txtDiemAnh = new DevExpress.XtraEditors.TextEdit();
             this.labelControl9 = new DevExpress.XtraEditors.LabelControl();
@@ -67,7 +68,6 @@
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
-            this.lblTongSVThang8 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.mme_GhiChu.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtHoTen.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
@@ -118,7 +118,7 @@
             this.btnXoa.Name = "btnXoa";
             this.btnXoa.Size = new System.Drawing.Size(100, 35);
             this.btnXoa.TabIndex = 18;
-            this.btnXoa.Text = "Xóa ";
+            this.btnXoa.Text = "Xóa (Ctrl D)";
             this.btnXoa.UseVisualStyleBackColor = true;
             this.btnXoa.Click += new System.EventHandler(this.btnXoa_Click);
             // 
@@ -128,7 +128,7 @@
             this.btnSua.Name = "btnSua";
             this.btnSua.Size = new System.Drawing.Size(100, 35);
             this.btnSua.TabIndex = 17;
-            this.btnSua.Text = "Sửa";
+            this.btnSua.Text = "Sửa (Ctrl F)";
             this.btnSua.UseVisualStyleBackColor = true;
             this.btnSua.Click += new System.EventHandler(this.btnSua_Click);
             // 
@@ -138,7 +138,7 @@
             this.btnThem.Name = "btnThem";
             this.btnThem.Size = new System.Drawing.Size(100, 35);
             this.btnThem.TabIndex = 16;
-            this.btnThem.Text = "Thêm";
+            this.btnThem.Text = "Thêm (Ctrl N)";
             this.btnThem.UseVisualStyleBackColor = true;
             this.btnThem.Click += new System.EventHandler(this.btn_Them_Click);
             // 
@@ -209,7 +209,7 @@
             // btn_TimKiem
             // 
             this.btn_TimKiem.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_TimKiem.Location = new System.Drawing.Point(424, 5);
+            this.btn_TimKiem.Location = new System.Drawing.Point(796, 5);
             this.btn_TimKiem.Name = "btn_TimKiem";
             this.btn_TimKiem.Size = new System.Drawing.Size(132, 37);
             this.btn_TimKiem.TabIndex = 8;
@@ -224,7 +224,7 @@
             this.txt_TimKiem.Location = new System.Drawing.Point(12, 12);
             this.txt_TimKiem.Multiline = true;
             this.txt_TimKiem.Name = "txt_TimKiem";
-            this.txt_TimKiem.Size = new System.Drawing.Size(406, 26);
+            this.txt_TimKiem.Size = new System.Drawing.Size(778, 26);
             this.txt_TimKiem.TabIndex = 7;
             // 
             // labelControl2
@@ -277,6 +277,18 @@
             this.panelControl1.Name = "panelControl1";
             this.panelControl1.Size = new System.Drawing.Size(342, 574);
             this.panelControl1.TabIndex = 6;
+            // 
+            // lblTongSVThang8
+            // 
+            this.lblTongSVThang8.AutoSize = true;
+            this.lblTongSVThang8.BackColor = System.Drawing.Color.WhiteSmoke;
+            this.lblTongSVThang8.Font = new System.Drawing.Font("Arial", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTongSVThang8.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lblTongSVThang8.Location = new System.Drawing.Point(12, 441);
+            this.lblTongSVThang8.Name = "lblTongSVThang8";
+            this.lblTongSVThang8.Size = new System.Drawing.Size(262, 23);
+            this.lblTongSVThang8.TabIndex = 34;
+            this.lblTongSVThang8.Text = "Tổng số sinh viên điểm > 8 : ";
             // 
             // cbbDoiTuong
             // 
@@ -360,9 +372,9 @@
             // 
             this.btnLamMoi.Location = new System.Drawing.Point(173, 527);
             this.btnLamMoi.Name = "btnLamMoi";
-            this.btnLamMoi.Size = new System.Drawing.Size(100, 35);
+            this.btnLamMoi.Size = new System.Drawing.Size(122, 35);
             this.btnLamMoi.TabIndex = 21;
-            this.btnLamMoi.Text = "Làm mới";
+            this.btnLamMoi.Text = "Làm mới (Ctrl M)";
             this.btnLamMoi.UseVisualStyleBackColor = true;
             this.btnLamMoi.Click += new System.EventHandler(this.btnLamMoi_Click);
             // 
@@ -372,7 +384,7 @@
             this.btnLuu.Name = "btnLuu";
             this.btnLuu.Size = new System.Drawing.Size(100, 35);
             this.btnLuu.TabIndex = 20;
-            this.btnLuu.Text = "Lưu";
+            this.btnLuu.Text = "Lưu (Ctrl S)";
             this.btnLuu.UseVisualStyleBackColor = true;
             this.btnLuu.Click += new System.EventHandler(this.btn_Luu_Click);
             // 
@@ -387,7 +399,7 @@
             this.gdc_DanhSachSV.Location = new System.Drawing.Point(12, 46);
             this.gdc_DanhSachSV.MainView = this.gridView2;
             this.gdc_DanhSachSV.Name = "gdc_DanhSachSV";
-            this.gdc_DanhSachSV.Size = new System.Drawing.Size(916, 542);
+            this.gdc_DanhSachSV.Size = new System.Drawing.Size(916, 499);
             this.gdc_DanhSachSV.TabIndex = 5;
             this.gdc_DanhSachSV.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2,
@@ -410,44 +422,35 @@
             // button1
             // 
             this.button1.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button1.Location = new System.Drawing.Point(562, 5);
+            this.button1.Location = new System.Drawing.Point(345, 551);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 37);
+            this.button1.Size = new System.Drawing.Size(255, 37);
             this.button1.TabIndex = 9;
-            this.button1.Text = "Tổng ĐT";
+            this.button1.Text = "Tổng sinh viên (theo đối tượng)";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(676, 5);
+            this.button2.Location = new System.Drawing.Point(606, 551);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(123, 37);
+            this.button2.Size = new System.Drawing.Size(172, 37);
             this.button2.TabIndex = 10;
-            this.button2.Text = "Tổng TT > 8";
+            this.button2.Text = "Tổng điểm TB > 8";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // button3
             // 
             this.button3.Font = new System.Drawing.Font("Times New Roman", 10.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(805, 5);
+            this.button3.Location = new System.Drawing.Point(784, 551);
             this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(123, 37);
+            this.button3.Size = new System.Drawing.Size(144, 37);
             this.button3.TabIndex = 11;
-            this.button3.Text = "Tổng SV";
+            this.button3.Text = "Tổng sinh viên";
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
-            // 
-            // lblTongSVThang8
-            // 
-            this.lblTongSVThang8.AutoSize = true;
-            this.lblTongSVThang8.Location = new System.Drawing.Point(12, 441);
-            this.lblTongSVThang8.Name = "lblTongSVThang8";
-            this.lblTongSVThang8.Size = new System.Drawing.Size(176, 16);
-            this.lblTongSVThang8.TabIndex = 34;
-            this.lblTongSVThang8.Text = "Tổng số sinh viên điểm > 8 : ";
             // 
             // AddStudent
             // 
