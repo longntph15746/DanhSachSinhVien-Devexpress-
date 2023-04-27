@@ -1,4 +1,5 @@
 ﻿using DanhSachSinhVien.Models;
+using DevExpress.XtraEditors.DXErrorProvider;
 using DevExpress.XtraEditors.Mask;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
@@ -14,6 +15,7 @@ namespace DanhSachSinhVien
     public partial class AddStudent : Form
     {
         private List<SinhVien> SinhVienList = new List<SinhVien>();
+        private DXErrorProvider errorProvider = new DXErrorProvider();
         private RepositoryItemComboBox comboBoxGender = new RepositoryItemComboBox();
         private RepositoryItemDateEdit dateEditBirthday = new RepositoryItemDateEdit();
         private RepositoryItemComboBox comboBoxObjectType = new RepositoryItemComboBox();
@@ -22,7 +24,7 @@ namespace DanhSachSinhVien
         {
             InitializeComponent();
             //khoi tao control
-            InitControls();            
+            InitControls();
         }
         void InitControls()
         {
@@ -41,10 +43,25 @@ namespace DanhSachSinhVien
             gridView2.Columns.Add(new DevExpress.XtraGrid.Columns.GridColumn() { Caption = "Điểm anh", FieldName = "DiemAnh", Visible = true });
             gridView2.Columns.Add(new DevExpress.XtraGrid.Columns.GridColumn() { Caption = "Ghi chú", FieldName = "GhiChu", Visible = true });
         }
+        private bool CheckDuplicate(string maSV)
+        {
+            foreach (SinhVien sv in SinhVienList)
+            {
+                if (sv.MaSinhVien == maSV)
+                    return true;
+            }
+            return false;
+        }
+
         private void btn_Them_Click(object sender, EventArgs e)
         {
             SinhVien sv = new SinhVien();
             sv.MaSinhVien = txtMaSV.Text;
+            if (CheckDuplicate(txtMaSV.Text))
+            {
+                MessageBox.Show("Mã sinh viên đã tồn tại!");
+                return;
+            }
             sv.HoTen = txtHoTen.Text;
             sv.GioiTinh = cbbGioiTinh.SelectedItem.ToString();
             sv.NgaySinh = dateNgaySinh.DateTime;
@@ -52,11 +69,11 @@ namespace DanhSachSinhVien
             sv.DiemToan = Convert.ToDouble(txt_DiemToan.Text);
             sv.DiemVan = Convert.ToDouble(txtDiemVan.Text);
             sv.DiemAnh = Convert.ToDouble(txtDiemAnh.Text);
-            sv.GhiChu = mme_GhiChu.Text; 
+            sv.GhiChu = mme_GhiChu.Text;
             SinhVienList.Add(sv);
             // load data into the grid control
             gdc_DanhSachSV.DataSource = SinhVienList;
-            gdc_DanhSachSV.RefreshDataSource();           
+            gdc_DanhSachSV.RefreshDataSource();
         }
         private void btn_Luu_Click(object sender, EventArgs e)
         {
@@ -102,8 +119,8 @@ namespace DanhSachSinhVien
         }
 
         private void btnSua_Click(object sender, EventArgs e)
-        {
-            
+        {          
+
         }
 
         private void btnXoa_Click(object sender, EventArgs e)
@@ -131,7 +148,45 @@ namespace DanhSachSinhVien
 
         private void gridView2_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            
+            // Lấy thông tin sinh viên đã được chỉnh sửa
+            SinhVien sinhVien = gridView1.GetRow(e.RowHandle) as SinhVien;
+
+            if (sinhVien != null)
+            {
+                // Cập nhật thông tin sinh viên đã được chỉnh sửa
+                if (e.Column.FieldName == "MaSinhVien")
+                {
+                    sinhVien.MaSinhVien = e.Value.ToString();
+                }
+                else if (e.Column.FieldName == "HoTen")
+                {
+                    sinhVien.HoTen = e.Value.ToString();
+                }
+                else if (e.Column.FieldName == "GioiTinh")
+                {
+                    sinhVien.GioiTinh = e.Value.ToString();
+                }
+                else if (e.Column.FieldName == "NgaySinh")
+                {
+                    sinhVien.NgaySinh = (DateTime)e.Value;
+                }
+                else if (e.Column.FieldName == "DoiTuong")
+                {
+                    sinhVien.DoiTuong = e.Value.ToString();
+                }
+                else if (e.Column.FieldName == "DiemToan")
+                {
+                    sinhVien.DiemToan = Convert.ToDouble(e.Value);
+                }
+                else if (e.Column.FieldName == "DiemVan")
+                {
+                    sinhVien.DiemVan = Convert.ToDouble(e.Value);
+                }
+                else if (e.Column.FieldName == "DiemAnh")
+                {
+                    sinhVien.DiemAnh = Convert.ToDouble(e.Value);
+                }
+            }
         }
 
         private void btn_TimKiem_Click(object sender, EventArgs e)
@@ -180,6 +235,78 @@ namespace DanhSachSinhVien
 
             // Hiển thị kết quả lên một Label
             lblTongSVThang8.Text = $"Tổng số sinh viên có thành tích trên 8 : {count}";
+        }
+
+        private void txt_DiemToan_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            double diem;
+            if (double.TryParse(txt_DiemToan.Text, out diem))
+            {
+                if (diem > 10)
+                {
+                    e.Cancel = true;
+                    txt_DiemToan.ErrorText = "Điểm không được lớn hơn 10";
+                }
+            }
+        }
+
+        private void txtDiemVan_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            double diem;
+            if (double.TryParse(txtDiemVan.Text, out diem))
+            {
+                if (diem > 10)
+                {
+                    e.Cancel = true;
+                    txtDiemVan.ErrorText = "Điểm không được lớn hơn 10";
+                }
+            }
+        }
+
+        private void txtDiemAnh_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            double diem;
+            if (double.TryParse(txtDiemAnh.Text, out diem))
+            {
+                if (diem > 10)
+                {
+                    e.Cancel = true;
+                    txtDiemAnh.ErrorText = "Điểm không được lớn hơn 10";
+                }
+            }
+        }
+
+        private void txtMaSV_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            string maSV = txtMaSV.Text.Trim();
+            if (!maSV.StartsWith("SV"))
+            {
+                e.Cancel = true;
+                txtMaSV.ErrorText = "Mã sinh viên phải bắt đầu bằng 'SV'";
+            }
+            else
+            {
+                txtMaSV.ErrorText = "";
+            }
+        }
+
+        private void txtHoTen_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(txtHoTen.Text))
+            {
+                e.Cancel = true;
+                errorProvider.SetError(txtHoTen, "Bạn phải nhập họ tên.");
+            }
+            else
+            {
+                e.Cancel = false;
+                errorProvider.SetError(txtHoTen, "");
+            }
+        }
+
+        private void cbbGioiTinh_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
         }
     }
 }
