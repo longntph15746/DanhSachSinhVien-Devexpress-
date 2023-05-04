@@ -19,7 +19,6 @@ namespace DanhSachSinhVien
         private RepositoryItemComboBox comboBoxGender = new RepositoryItemComboBox();
         private RepositoryItemDateEdit dateEditBirthday = new RepositoryItemDateEdit();
         private RepositoryItemComboBox comboBoxObjectType = new RepositoryItemComboBox();
-        private SinhVien _sinhvien;
         public AddStudent()
         {
             InitializeComponent();
