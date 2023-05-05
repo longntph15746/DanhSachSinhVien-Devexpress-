@@ -16,7 +16,7 @@ namespace DanhSachSinhVien
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AddStudent());
+            Application.Run(new Form1());
         }
     }
 }
