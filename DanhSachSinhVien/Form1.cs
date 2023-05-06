@@ -4,6 +4,7 @@ using DevExpress.XtraEditors.DXErrorProvider;
 using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid;
 using DevExpress.XtraGrid.Columns;
+using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraVerticalGrid;
 using System;
 using System.Collections.Generic;
@@ -15,19 +16,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Globalization;
 
 namespace DanhSachSinhVien
 {
     public partial class Form1 : Form
     {
+
         private List<SinhVien> lstSinhVien = new List<SinhVien>();
         private DXErrorProvider errorProvider = new DXErrorProvider();
-            
         public Form1()
         {
             InitializeComponent();
-
         }
+
         static int countSV = 0;
 
         private string GenerateMaSV()
@@ -42,7 +44,7 @@ namespace DanhSachSinhVien
             sv.MaSinhVien = GenerateMaSV();
             sv.HoTen = txtHoTen.Text;
             sv.GioiTinh = cboGioiTinh.SelectedItem.ToString();
-            sv.DoiTuong = cboDoiTuong.SelectedItem.ToString();
+            sv.DoiTuong = cboDoiTuong.Text;
             sv.DiemToan = (txtDiemToan.Text);
             sv.DiemVan = (txtDiemVan.Text);
             sv.DiemAnh = (txtDiemAnh.Text);
@@ -60,9 +62,9 @@ namespace DanhSachSinhVien
             if (sv == null) return;
             //fill du lieu vao cac control
             txtHoTen.Text = sv.HoTen;
-            cboGioiTinh.SelectedItem = sv.GioiTinh;
+            cboGioiTinh.Text = sv.GioiTinh;
             dateNgaySinh.DateTime = sv.NgaySinh;
-            cboDoiTuong.SelectedItem = sv.DoiTuong;
+            cboDoiTuong.Text = sv.DoiTuong;
             txtDiemToan.Text = sv.DiemToan.ToString();
             txtDiemVan.Text = sv.DiemVan.ToString();
             txtDiemAnh.Text = sv.DiemAnh.ToString();
@@ -134,8 +136,8 @@ namespace DanhSachSinhVien
             SinhVien sv = new SinhVien();
             sv.MaSinhVien = GenerateMaSV();
             sv.HoTen = txtHoTen.Text;
-            sv.GioiTinh = cboGioiTinh.Text;
-            sv.DoiTuong = cboDoiTuong.Text;
+            sv.GioiTinh = cboGioiTinh.SelectedItem.ToString();
+            sv.DoiTuong = cboDoiTuong.SelectedItem.ToString();
             sv.DiemToan = (txtDiemToan.Text);
             sv.DiemVan = (txtDiemVan.Text);
             sv.DiemAnh = (txtDiemAnh.Text);
@@ -245,7 +247,7 @@ namespace DanhSachSinhVien
 
         private void cboGioiTinh_EditValueChanged(object sender, EventArgs e)
         {
-            string gioiTinh = cboGioiTinh.EditValue as string;
+
         }
 
         private void barButtonItem7_ItemClick(object sender, DevExpress.XtraBars.ItemClickEventArgs e)
@@ -277,44 +279,39 @@ namespace DanhSachSinhVien
                     string row = "";
                     for (int j = 0; j < gridView1.Columns.Count; j++)
                     {
-                        row += gridView1.GetRowCellValue(i, gridView1.Columns[j]).ToString() + "\t";
+                        row += gridView1.GetRowCellValue(i, gridView1.Columns[j]).ToString() + "-";
                     }
-                    writer.WriteLine(row.TrimEnd('\t'));
+                    writer.WriteLine(row.TrimEnd('-'));
                 }
             }
-            MessageBox.Show("Lưu dữ liệu thành công!");
         }
-
         private void LoadData()
         {
             // Đọc dữ liệu từ file
             string[] lines = System.IO.File.ReadAllLines(@"D:\Vietsens\Học việc\TEST\Bai 1\DanhSachSinhVien\DanhSachSinhVien\TextFile1.txt");
 
-            // Tạo DataTable để lưu dữ liệu
-            DataTable dt = new DataTable();
-            // Thêm các cột vào DataTable
-            for (int i = 0; i < lines[0].Length; i++)
-            {
-                dt.Columns.Add("Column " + (i + 1));
-            }
+            List<SinhVien> listSV = new List<SinhVien>();
 
-            // Thêm dữ liệu từ file vào DataTable
-            foreach (string line in lines)
+            foreach (var line in lines)
             {
-                DataRow row = dt.NewRow();
-                string[] values = line.Split(' ');
-                for (int i = 0; i < values.Length; i++) 
-                {
-                    row[i] = values[i];
-                }
-                dt.Rows.Add(row);
+                List<string> thuocTinh = line.Split('-').ToList();
+                SinhVien sv = new SinhVien();
+                sv.MaSinhVien = thuocTinh[0];
+                sv.HoTen = thuocTinh[1];
+                sv.GioiTinh = thuocTinh[2];
+                sv.NgaySinh = Convert.ToDateTime(thuocTinh[3]);
+                sv.DoiTuong = thuocTinh[4];
+                sv.DiemToan = thuocTinh[5];
+                sv.DiemVan = thuocTinh[6];
+                sv.DiemAnh = thuocTinh[7];
+                sv.GhiChu = thuocTinh[8];
+                listSV.Add(sv);
             }
 
             // Load dữ liệu lên GridView
-            gdcSinhVien.DataSource = dt;
+            gdcSinhVien.DataSource = listSV;
             gdcSinhVien.RefreshDataSource();
         }
-
         private void gdcSinhVien_Load(object sender, EventArgs e)
         {
             LoadData();
@@ -331,4 +328,7 @@ namespace DanhSachSinhVien
         }
     }
 }
+
+
+
 
