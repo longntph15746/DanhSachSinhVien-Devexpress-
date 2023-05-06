@@ -22,11 +22,9 @@ namespace DanhSachSinhVien
     {
         private List<SinhVien> lstSinhVien = new List<SinhVien>();
         private DXErrorProvider errorProvider = new DXErrorProvider();
-            
         public Form1()
         {
             InitializeComponent();
-
         }
         static int countSV = 0;
 
@@ -279,16 +277,10 @@ namespace DanhSachSinhVien
                     {
                         row += gridView1.GetRowCellValue(i, gridView1.Columns[j]).ToString() + "\t";
                     }
-                    writer.WriteLine(row.TrimEnd('\t'));
                 }
             }
-            MessageBox.Show("Lưu dữ liệu thành công!");
         }
 
-        private void LoadData()
-        {
-            // Đọc dữ liệu từ file
-            string[] lines = System.IO.File.ReadAllLines(@"D:\Vietsens\Học việc\TEST\Bai 1\DanhSachSinhVien\DanhSachSinhVien\TextFile1.txt");
 
             // Tạo DataTable để lưu dữ liệu
             DataTable dt = new DataTable();
@@ -301,33 +293,20 @@ namespace DanhSachSinhVien
             // Thêm dữ liệu từ file vào DataTable
             foreach (string line in lines)
             {
-                DataRow row = dt.NewRow();
                 string[] values = line.Split(' ');
                 for (int i = 0; i < values.Length; i++) 
                 {
                     row[i] = values[i];
                 }
-                dt.Rows.Add(row);
             }
 
-            // Load dữ liệu lên GridView
-            gdcSinhVien.DataSource = dt;
-            gdcSinhVien.RefreshDataSource();
         }
-
-        private void gdcSinhVien_Load(object sender, EventArgs e)
-        {
-            LoadData();
         }
 
         private void gridView1_InitNewRow(object sender, DevExpress.XtraGrid.Views.Grid.InitNewRowEventArgs e)
         {
 
         }
-
-        private void btnSua_Click(object sender, EventArgs e)
-        {
-
         }
     }
 }
